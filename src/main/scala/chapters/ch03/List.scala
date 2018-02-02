@@ -27,4 +27,9 @@ object List {
     case Nil => sys.error("Tail of a Nil List")
     case Cons(_, t) => t
   }
+
+  def setHead[A](a: A, l: List[A]): List[A] = l match {
+    case Nil => sys.error("setHead on Nil list")
+    case Cons(_, t) => Cons(a, t)
+  }
 }
