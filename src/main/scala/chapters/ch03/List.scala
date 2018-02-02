@@ -32,4 +32,13 @@ object List {
     case Nil => sys.error("setHead on Nil list")
     case Cons(_, t) => Cons(a, t)
   }
+
+  def drop[A](l: List[A], n: Int): List[A] =
+    if(n <= 0) l
+    else l match {
+      case Nil => Nil
+      case Cons(_, t) => drop(t, n - 1)
+    }
+
+  def tail2[A](l: List[A]): List[A] = drop(l, 1)
 }
