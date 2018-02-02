@@ -41,4 +41,9 @@ object List {
     }
 
   def tail2[A](l: List[A]): List[A] = drop(l, 1)
+
+  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
+    case Cons(h, t) if f(h) => dropWhile(t, f)
+    case _ => l
+  }
 }
