@@ -15,4 +15,19 @@ object HOF {
 
     aux(1 :: 0 :: Nil, n).reverse
   }
+
+  def isSorted[A](as: Array[A], ordered: (A,A) => Boolean): Boolean = {
+    @tailrec
+    def aux(acc: Boolean, _as: Array[A]): Boolean = {
+      if(_as.length < 2) true
+      else {
+        val current = acc && ordered(_as(0), _as(1))
+
+        if(_as.length == 2) current
+        else aux(acc && current, _as.slice(2, _as.length - 1))
+      }
+    }
+
+    aux(true, as)
+  }
 }
