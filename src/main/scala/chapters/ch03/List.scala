@@ -57,4 +57,8 @@ object List {
     case Cons(_, Nil) => Nil
     case Cons(h, t) => Cons(h, init(t))
   }
+
+  def curriedDropWhile[A](as: List[A])(f: A => Boolean): List[A] = as match {
+    case Cons(h,t) if f(h) => curriedDropWhile(t)(f)
+    case _ => as }
 }
