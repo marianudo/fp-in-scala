@@ -86,4 +86,16 @@ object List {
   def length2[A](as:List[A]): Int = foldLeft(as, 0)((a, _) => a + 1)
 
   def reverse[A](as: List[A]): List[A] = foldLeft(as, Nil: List[A])((b, a) => Cons(a, b))
+
+  def foldLeft2[A, B](as: List[A], z: B)(f: (B, A) => B): B = {
+    def aux(f1: (B, A) => B): (A, B) => B = (a, b) => f1(b, a)
+
+    foldRight(as, z)(aux(f))
+  }
+
+  def foldRight2[A, B](as: List[A], z: B)(f: (A, B) => B): B = {
+    def aux(f1: (A, B) => B): (B, A) => B = (b, a) => f1(a, b)
+
+    foldLeft(as, z)(aux(f))
+  }
 }
