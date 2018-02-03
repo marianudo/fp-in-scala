@@ -104,4 +104,7 @@ object List {
 
   def appendInTermsOfFoldLeft[A](l1: List[A], l2: List[A]): List[A] =
     foldLeft(l1, l2)((b, a) => Cons(a, b))
+
+  def flatten[A](ll: List[List[A]]): List[A] =
+    foldRight(ll, Nil: List[A])(appendInTermsOfFoldRight)
 }
