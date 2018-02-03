@@ -1,5 +1,7 @@
 package chapters.ch03
 
+import scala.annotation.tailrec
+
 sealed trait List[+A] // `List` data type, parameterized on a type, `A`
 case object Nil extends List[Nothing] // A `List` data constructor representing the empty list
 /* Another data constructor, representing nonempty lists. Note that `tail` is another `List[A]`,
@@ -73,4 +75,9 @@ object List {
 
   def length[A](as: List[A]): Int = foldRight(as, 0)((_, a) => a + 1)
 
+  @tailrec
+  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
+    case Nil => z
+    case Cons(h, t) => foldLeft(t, f(z, h))(f)
+  }
 }
