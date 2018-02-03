@@ -61,4 +61,13 @@ object List {
   def curriedDropWhile[A](as: List[A])(f: A => Boolean): List[A] = as match {
     case Cons(h,t) if f(h) => curriedDropWhile(t)(f)
     case _ => as }
+
+  def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B = as match {
+    case Nil => z
+    case Cons(h, t) => f(h, foldRight(t, z)(f))
+  }
+
+  def sum2(ns: List[Int]): Int = foldRight(ns, 0)(_ + _)
+
+  def product2(ns: List[Int]): Int = foldRight(ns, 1)(_ * _)
 }
