@@ -98,4 +98,10 @@ object List {
 
     foldLeft(as, z)(aux(f))
   }
+
+  def appendInTermsOfFoldRight[A](l1: List[A], l2: List[A]): List[A] =
+    foldRight(l1, l2)(Cons(_, _))
+
+  def appendInTermsOfFoldLeft[A](l1: List[A], l2: List[A]): List[A] =
+    foldLeft(l1, l2)((b, a) => Cons(a, b))
 }
