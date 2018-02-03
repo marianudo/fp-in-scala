@@ -70,4 +70,7 @@ object List {
   def sum2(ns: List[Int]): Int = foldRight(ns, 0)(_ + _)
 
   def product2(ns: List[Int]): Int = foldRight(ns, 1)(_ * _)
+
+  def length[A](as: List[A]): Int = foldRight(as, 0)((_, a) => a + 1)
+
 }
