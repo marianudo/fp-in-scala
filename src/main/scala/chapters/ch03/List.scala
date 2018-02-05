@@ -113,4 +113,7 @@ object List {
 
   def doubleToString(l: List[Double]): List[String] =
     foldRight(l, Nil: List[String])((d, acc) => Cons(d.toString, acc))
+
+  def map[A,B](as: List[A])(f: A => B): List[B] =
+    foldRight(as, Nil: List[B])((a, bs) => Cons(f(a), bs))
 }
