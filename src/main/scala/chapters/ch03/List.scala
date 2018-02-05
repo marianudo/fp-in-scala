@@ -128,4 +128,11 @@ object List {
 
   def filterViaFlatMap[A](l: List[A])(f: A => Boolean): List[A] =
     flatMap(l)(a => if(f(a)) List(a) else List())
+
+  def addElements(l1: List[Int], l2: List[Int]): List[Int] = (l1, l2) match {
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1 + h2, addElements(t1, t2))
+    case (Nil, Cons(h2, t2)) => Cons(h2, t2)
+    case (Cons(h1, t1), Nil) => Cons(h1, t1)
+    case (Nil, Nil) => Nil
+  }
 }
