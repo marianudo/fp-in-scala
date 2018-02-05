@@ -107,4 +107,7 @@ object List {
 
   def flatten[A](ll: List[List[A]]): List[A] =
     foldRight(ll, Nil: List[A])(appendInTermsOfFoldRight)
+
+  def add1(li: List[Int]): List[Int] =
+    foldRight(li, List[Int]())((i, acc) => Cons(i + 1, acc))
 }
