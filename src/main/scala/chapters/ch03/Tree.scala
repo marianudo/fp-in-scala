@@ -14,4 +14,9 @@ object Tree {
       case Leaf(v) => v
       case Branch(t1, t2) => maximum(t1).max(maximum(t2))
   }
+
+  def depth[A](t: Tree[A]): Int = t match {
+    case Leaf(_) => 0
+    case Branch(t1, t2) => 1 + depth(t1).max(depth(t2))
+  }
 }
