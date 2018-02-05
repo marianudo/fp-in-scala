@@ -9,4 +9,9 @@ object Tree {
     case Leaf(_) => 1
     case Branch(t1, t2) => size(t1) + size(t2) + 1
   }
+
+  def maximum(t: Tree[Int]): Int = t match {
+      case Leaf(v) => v
+      case Branch(t1, t2) => maximum(t1).max(maximum(t2))
+  }
 }
