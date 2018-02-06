@@ -37,4 +37,7 @@ object Tree {
 
   def sizeViaFold[A](t: Tree[A]): Int =
     fold(t)(_ => 1)(_ + _ + 1)
+
+  def maximumViaFold(t: Tree[Int]): Int =
+    fold(t)(identity)(_.max(_))
 }
