@@ -1,13 +1,12 @@
 package chapters.ch04
 
 //hide std library `Option` and `Either`, since we are writing our own in this chapter
-import cats.kernel.Monoid
-import cats.{Applicative, Foldable, Monad}
+import cats.Monad
 
 import scala.language.higherKinds
-import scala.{Either => _, Option => _, _}
+import scala.{Option => _}
 
-object OptionAndEitherExercises {
+object OptionExercises {
   sealed trait Option[+A] {
     def map[B](f: A => B): Option[B] =
       flatMap(a => Some(f(a)))
@@ -79,8 +78,8 @@ object OptionAndEitherExercises {
 
     def traverseF[F[_], A, B](a: List[A])(f: A => F[B])(implicit ev: Monad[F]): F[List[B]] = {
       import cats.syntax.applicative._
-      import cats.syntax.functor._
       import cats.syntax.flatMap._
+      import cats.syntax.functor._
 
       a.foldRight[F[List[B]]](List.empty[B].pure[F])((a, flb) => {
         for {
