@@ -3,7 +3,7 @@ package chapters.ch04
 //hide std library `Option` and `Either`, since we are writing our own in this chapter
 import scala.{Option => _, Either => _, _}
 
-object OptionExercises {
+object OptionAndEitherExercises {
   sealed trait Option[+A] {
     def map[B](f: A => B): Option[B] =
       flatMap(a => Some(f(a)))
