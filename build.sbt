@@ -9,5 +9,5 @@ lazy val root = (project in file(".")).
     )),
     name := "Hello",
     libraryDependencies += scalaTest % Test,
-    initialCommands in console := "import chapters.ch03._; import chapters.ch03.Tree._"
+    initialCommands in console := "import chapters.ch04._; import chapters.ch04.OptionExercises._"
   )
