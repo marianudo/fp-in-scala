@@ -1,7 +1,11 @@
 package chapters.ch04
 
 //hide std library `Option` and `Either`, since we are writing our own in this chapter
-import scala.{Option => _, Either => _, _}
+import cats.kernel.Monoid
+import cats.{Applicative, Foldable, Monad}
+
+import scala.language.higherKinds
+import scala.{Either => _, Option => _, _}
 
 object OptionAndEitherExercises {
   sealed trait Option[+A] {
@@ -65,7 +69,31 @@ object OptionAndEitherExercises {
         } yield aa :: laa
       )
 
+    def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] =
+      a.foldRight[Option[List[B]]](Some(Nil))((a, b) => {
+        for {
+          bb <- f(a)
+          bbb <- b
+        } yield bb :: bbb
+      })
+
+    def traverseF[F[_], A, B](a: List[A])(f: A => F[B])(implicit ev: Monad[F]): F[List[B]] = {
+      import cats.syntax.applicative._
+      import cats.syntax.functor._
+      import cats.syntax.flatMap._
+
+      a.foldRight[F[List[B]]](List.empty[B].pure[F])((a, flb) => {
+        for {
+          aa <- f(a)
+          lb <- flb
+        } yield aa :: lb
+      })
+    }
+
     def traverseViaSequence[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] =
       sequence_2(a.map(f))
+
+    def sequenceViaTraverse[A](a: List[Option[A]]): Option[List[A]] =
+      traverse(a)(identity)
   }
 }
