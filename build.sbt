@@ -7,7 +7,7 @@ lazy val root = (project in file(".")).
       scalaVersion := "2.12.3",
       version      := "0.1.0-SNAPSHOT"
     )),
-    name := "Hello",
+    name := "fp-in-scala",
     libraryDependencies ++= Seq(
       "org.typelevel" %% "cats-core" % "1.0.1",
       scalaTest % Test
