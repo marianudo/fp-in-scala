@@ -61,6 +61,12 @@ sealed trait Stream[+A] {
 
   def flatMap[B](f: A => Stream[B]): Stream[B] =
     foldRight(empty[B])((h, t) => f(h) append t)
+
+  def drop_1(i: Int): Stream[A] = this match {
+    case Cons(h, t) if i > 1 => t().drop_1(i - 1)
+    case Cons(h, t) if i <= 1 => t()
+    case _ => empty[A]
+  }
 }
 
 case object Empty extends Stream[Nothing]
