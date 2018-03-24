@@ -46,6 +46,9 @@ sealed trait Stream[+A] {
     foldRight(empty[A])((h,t) =>
       if (f(h)) cons(h,t)
       else      empty)
+
+  def headOption_1: Option[A] =
+    foldRight(Option.empty[A])((h, _) => Some(h))
 }
 
 case object Empty extends Stream[Nothing]
