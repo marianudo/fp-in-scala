@@ -96,4 +96,19 @@ object Stream {
       case Cons(h, t) => h() + t().sum
     }
   }
+
+  def constant[A](a: A): Stream[A] =
+    cons(a, constant(a))
+
+  def from(n: Int): Stream[Int] =
+    cons(n, from(n + 1))
+
+  def fibs: Stream[Int] = {
+    def aux(p1: Int, p2: Int): Stream[Int] =
+      cons(p1 + p2, aux(p2, p1 + p2))
+
+    aux(0, 1)
+  }
+
+  def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] = ???
 }
